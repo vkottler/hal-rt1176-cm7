@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.4
-    hash=e174dfd31b7477151dc0d37af6383658
+    hash=320fd7694c3656addf08d728d55b983b
     =====================================
 -->
 
-# hal-rt1176-cm7 ([0.1.0](https://github.com/vkottler/hal-rt1176-cm7/releases/tag/0.1.0))
+# hal-rt1176-cm7 ([0.1.1](https://github.com/vkottler/hal-rt1176-cm7/releases/tag/0.1.1))
 
 [![codecov](https://codecov.io/gh/vkottler/hal-rt1176-cm7/branch/master/graph/badge.svg)](https://codecov.io/gh/vkottler/hal-rt1176-cm7)
 ![Build Status](https://github.com/vkottler/hal-rt1176-cm7/actions/workflows/yambs-project.yml/badge.svg)

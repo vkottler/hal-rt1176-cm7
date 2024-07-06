@@ -1,0 +1,110 @@
+---
+structs:
+  cm7_mcm:
+    description: CM7_MCM
+    instances:
+      - name: CM7_MCM
+        address: '0xE0080000'
+    fields:
+      - name: ISCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 16
+        description: (read-write) Interrupt Status and Control Register
+        fields:
+          - name: FIDCE
+            description: FPU Input Denormal Interrupt Enable
+            index: 31
+            width: 1
+            read: true
+            write: true
+          - name: FIXCE
+            description: FPU Inexact Interrupt Enable
+            index: 28
+            width: 1
+            read: true
+            write: true
+          - name: FUFCE
+            description: FPU Underflow Interrupt Enable
+            index: 27
+            width: 1
+            read: true
+            write: true
+          - name: FOFCE
+            description: FPU Overflow Interrupt Enable
+            index: 26
+            width: 1
+            read: true
+            write: true
+          - name: FDZCE
+            description: FPU Divide-by-Zero Interrupt Enable
+            index: 25
+            width: 1
+            read: true
+            write: true
+          - name: FIOCE
+            description: FPU Invalid Operation Interrupt Enable
+            index: 24
+            width: 1
+            read: true
+            write: true
+          - name: WABE
+            description: TCM Write Abort Interrupt enable
+            index: 21
+            width: 1
+            read: true
+            write: true
+          - name: FIDC
+            description: FPU Input Denormal Interrupt Status
+            index: 15
+            width: 1
+            read: true
+            write: false
+          - name: FIXC
+            description: FPU Inexact Interrupt Status
+            index: 12
+            width: 1
+            read: true
+            write: false
+          - name: FUFC
+            description: FPU Underflow Interrupt Status
+            index: 11
+            width: 1
+            read: true
+            write: false
+          - name: FOFC
+            description: FPU Overflow interrupt status
+            index: 10
+            width: 1
+            read: true
+            write: false
+          - name: FDZC
+            description: FPU Divide-by-Zero Interrupt Status
+            index: 9
+            width: 1
+            read: true
+            write: false
+          - name: FIOC
+            description: FPU Invalid Operation interrupt Status
+            index: 8
+            width: 1
+            read: true
+            write: false
+          - name: WABSO
+            description: Write Abort on Slave Overrun
+            index: 6
+            width: 1
+            read: true
+            write: false
+          - name: WABS
+            description: Write Abort on Slave
+            index: 5
+            width: 1
+            read: true
+            write: true
+    stream: false
+    codec: false
+    methods: false
+    unit_test: false
+    identifier: false
+enums: {}
