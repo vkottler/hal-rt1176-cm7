@@ -1,11 +1,10 @@
 ---
 name: hal-rt1176-cm7
 description: A hardware abstraction layer.
-embedded: true
 
 ci_docs: false
 
 version:
   major: 0
-  minor: 1
-  patch: 1
+  minor: 2
+  patch: 0

@@ -1,26 +1,25 @@
 # =====================================
 # generator=datazen
 # version=3.1.4
-# hash=e985e512ac3a25d7a04a538cd2b0eb2b
+# hash=e3b8bd79ef2cb0331d741701c83537e4
 # =====================================
 ---
 project:
   name: hal-rt1176-cm7
 
   github: {owner: &self vkottler}
-  version: {major: 0, minor: 1, patch: 1}
+  version: {major: 0, minor: 2, patch: 0}
 variants:
   clang:
     suffix: &clang_version "-17"
-    enabled: false
 
-  # Disable regular targets.
   debug:
-    enabled: false
+    suffix: &gcc_version "-13"
   opt:
-    enabled: false
+    suffix: *gcc_version
+
   clang-opt:
-    enabled: false
+    suffix: *clang_version
 
 includes:
   - local/yambs.yaml
