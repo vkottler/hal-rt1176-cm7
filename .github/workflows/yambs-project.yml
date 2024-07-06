@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
-        python-version: [3.11, 3.12]
+        python-version: [3.12]
 
     env:
       PYTHON_VERSION: ${{matrix.python-version}}
@@ -52,7 +52,7 @@ jobs:
       - run: mk download-toolchains
       - run: mk g
       - run: ninja all format-check
-      - run: mk dist docs variant=hal-rt1176-cm7
+      - run: mk dist variant=hal-rt1176-cm7
         if: github.ref_name != 'master'
 
       - run: mk release variant=hal-rt1176-cm7

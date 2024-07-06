@@ -1,14 +1,14 @@
 # =====================================
 # generator=datazen
 # version=3.1.4
-# hash=fa3c88bd0d14d1c358906322f44872cb
+# hash=e985e512ac3a25d7a04a538cd2b0eb2b
 # =====================================
 ---
 project:
   name: hal-rt1176-cm7
 
   github: {owner: &self vkottler}
-  version: {major: 0, minor: 1, patch: 0}
+  version: {major: 0, minor: 1, patch: 1}
 variants:
   clang:
     suffix: &clang_version "-17"

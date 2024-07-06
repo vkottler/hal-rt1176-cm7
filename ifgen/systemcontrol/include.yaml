@@ -1,0 +1,2928 @@
+---
+structs:
+  systemcontrol:
+    description: System Control Block
+    instances:
+      - name: SystemControl
+        address: '0xE000E000'
+    fields:
+      - name: ACTLR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 8
+        description: (read-write) Auxiliary Control Register,
+        fields:
+          - name: DISFPUISSOPT
+            description: Disables critical AXI read-under-write
+            index: 28
+            width: 1
+            read: true
+            write: true
+          - name: DISCRITAXIRUW
+            description: Disables critical AXI read-under-write
+            index: 27
+            width: 1
+            read: true
+            write: true
+          - name: DISDYNADD
+            description: Disables dynamic allocation of ADD and SUB instructions
+            index: 26
+            width: 1
+            read: true
+            write: true
+          - name: DISISSCH1
+            description: Disables dual-issued.
+            index: 21
+            width: 5
+            read: true
+            write: true
+            type: SystemControl_ACTLR_DISISSCH1
+          - name: DISDI
+            description: Disables dual-issued.
+            index: 16
+            width: 5
+            read: true
+            write: true
+            type: SystemControl_ACTLR_DISDI
+          - name: DISCRITAXIRUR
+            description: Disables critical AXI Read-Under-Read.
+            index: 15
+            width: 1
+            read: true
+            write: true
+          - name: DISBTACALLOC
+            description: Disables BTAC allocate.
+            index: 14
+            width: 1
+            read: true
+            write: true
+          - name: DISBTACREAD
+            description: Disables BTAC read.
+            index: 13
+            width: 1
+            read: true
+            write: true
+          - name: DISITMATBFLUSH
+            description: Disables ITM and DWT ATB flush.
+            index: 12
+            width: 1
+            read: true
+            write: true
+          - name: DISRAMODE
+            description: Disables dynamic read allocate mode for Write-Back Write-Allocate
+              memory regions.
+            index: 11
+            width: 1
+            read: true
+            write: true
+          - name: FPEXCODIS
+            description: Disables FPU exception outputs.
+            index: 10
+            width: 1
+            read: true
+            write: true
+          - name: DISFOLD
+            description: Disables folding of IT instructions.
+            index: 2
+            width: 1
+            read: true
+            write: true
+      - name: CPUID
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3328
+        description: (read-write) CPUID Base Register
+        fields:
+          - name: IMPLEMENTER
+            description: Implementer code
+            index: 24
+            width: 8
+            read: true
+            write: false
+          - name: VARIANT
+            description: 'Indicates processor revision: 0x2 = Revision 2'
+            index: 20
+            width: 4
+            read: true
+            write: false
+          - name: ARCHITECTURE
+            description: ARCHITECTURE
+            index: 16
+            width: 4
+            read: true
+            write: false
+          - name: PARTNO
+            description: Indicates part number
+            index: 4
+            width: 12
+            read: true
+            write: false
+          - name: REVISION
+            description: 'Indicates patch release: 0x0 = Patch 0'
+            index: 0
+            width: 4
+            read: true
+            write: false
+      - name: ICSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3332
+        description: (read-write) Interrupt Control and State Register
+        fields:
+          - name: NMIPENDSET
+            description: NMI set-pending bit
+            index: 31
+            width: 1
+            read: true
+            write: true
+          - name: PENDSVSET
+            description: PendSV set-pending bit
+            index: 28
+            width: 1
+            read: true
+            write: true
+          - name: PENDSVCLR
+            description: PendSV clear-pending bit
+            index: 27
+            width: 1
+            read: false
+            write: true
+          - name: PENDSTSET
+            description: SysTick exception set-pending bit
+            index: 26
+            width: 1
+            read: true
+            write: true
+          - name: PENDSTCLR
+            description: SysTick exception clear-pending bit
+            index: 25
+            width: 1
+            read: false
+            write: true
+          - name: ISRPENDING
+            description: Interrupt pending flag, excluding NMI and Faults
+            index: 22
+            width: 1
+            read: true
+            write: false
+          - name: VECTPENDING
+            description: Exception number of the highest priority pending enabled
+              exception
+            index: 12
+            width: 9
+            read: true
+            write: false
+          - name: RETTOBASE
+            description: Indicates whether there are preempted active exceptions
+            index: 11
+            width: 1
+            read: true
+            write: false
+          - name: VECTACTIVE
+            description: Active exception number
+            index: 0
+            width: 9
+            read: true
+            write: false
+      - name: VTOR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3336
+        description: (read-write) Vector Table Offset Register
+        fields:
+          - name: TBLOFF
+            description: Vector table base offset
+            index: 7
+            width: 25
+            read: true
+            write: true
+      - name: AIRCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3340
+        description: (read-write) Application Interrupt and Reset Control Register
+        fields:
+          - name: VECTKEY
+            description: Register key
+            index: 16
+            width: 16
+            read: true
+            write: true
+          - name: ENDIANNESS
+            description: Data endianness
+            index: 15
+            width: 1
+            read: true
+            write: false
+          - name: PRIGROUP
+            description: Interrupt priority grouping field. This field determines
+              the split of group priority from subpriority.
+            index: 8
+            width: 3
+            read: true
+            write: true
+          - name: SYSRESETREQ
+            description: System reset request
+            index: 2
+            width: 1
+            read: false
+            write: true
+          - name: VECTCLRACTIVE
+            description: Writing 1 to this bit clears all active state information
+              for fixed and configurable exceptions.
+            index: 1
+            width: 1
+            read: false
+            write: true
+          - name: VECTRESET
+            description: Writing 1 to this bit causes a local system reset
+            index: 0
+            width: 1
+            read: false
+            write: true
+      - name: SCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3344
+        description: (read-write) System Control Register
+        fields:
+          - name: SEVONPEND
+            description: Send Event on Pending bit
+            index: 4
+            width: 1
+            read: true
+            write: true
+          - name: SLEEPDEEP
+            description: Controls whether the processor uses sleep or deep sleep as
+              its low power mode
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: SLEEPONEXIT
+            description: Indicates sleep-on-exit when returning from Handler mode
+              to Thread mode
+            index: 1
+            width: 1
+            read: true
+            write: true
+      - name: CCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3348
+        description: (read-write) Configuration and Control Register
+        fields:
+          - name: BP
+            description: Always reads-as-one. It indicates branch prediction is enabled.
+            index: 18
+            width: 1
+            read: true
+            write: false
+          - name: IC
+            description: Enables L1 instruction cache.
+            index: 17
+            width: 1
+            read: true
+            write: true
+          - name: DC
+            description: Enables L1 data cache.
+            index: 16
+            width: 1
+            read: true
+            write: true
+          - name: STKALIGN
+            description: Indicates stack alignment on exception entry
+            index: 9
+            width: 1
+            read: true
+            write: true
+          - name: BFHFNMIGN
+            description: Enables handlers with priority -1 or -2 to ignore data BusFaults
+              caused by load and store instructions.
+            index: 8
+            width: 1
+            read: true
+            write: true
+          - name: DIV_0_TRP
+            description: Enables faulting or halting when the processor executes an
+              SDIV or UDIV instruction with a divisor of 0
+            index: 4
+            width: 1
+            read: true
+            write: true
+          - name: UNALIGN_TRP
+            description: Enables unaligned access traps
+            index: 3
+            width: 1
+            read: true
+            write: true
+          - name: USERSETMPEND
+            description: Enables unprivileged software access to the STIR
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: NONBASETHRDENA
+            description: Indicates how the processor enters Thread mode
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: SHPR1
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3352
+        description: (read-write) System Handler Priority Register 1
+        fields:
+          - name: PRI_6
+            description: Priority of system handler 6, UsageFault
+            index: 16
+            width: 8
+            read: true
+            write: true
+          - name: PRI_5
+            description: Priority of system handler 5, BusFault
+            index: 8
+            width: 8
+            read: true
+            write: true
+          - name: PRI_4
+            description: Priority of system handler 4, MemManage
+            index: 0
+            width: 8
+            read: true
+            write: true
+      - name: SHPR2
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3356
+        description: (read-write) System Handler Priority Register 2
+        fields:
+          - name: PRI_11
+            description: Priority of system handler 11, SVCall
+            index: 24
+            width: 8
+            read: true
+            write: true
+      - name: SHPR3
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3360
+        description: (read-write) System Handler Priority Register 3
+        fields:
+          - name: PRI_15
+            description: Priority of system handler 15, SysTick exception
+            index: 24
+            width: 8
+            read: true
+            write: true
+          - name: PRI_14
+            description: Priority of system handler 14, PendSV
+            index: 16
+            width: 8
+            read: true
+            write: true
+      - name: SHCSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3364
+        description: (read-write) System Handler Control and State Register
+        fields:
+          - name: USGFAULTENA
+            description: UsageFault enable bit
+            index: 18
+            width: 1
+            read: true
+            write: true
+          - name: BUSFAULTENA
+            description: BusFault enable bit
+            index: 17
+            width: 1
+            read: true
+            write: true
+          - name: MEMFAULTENA
+            description: MemManage enable bit
+            index: 16
+            width: 1
+            read: true
+            write: true
+          - name: SVCALLPENDED
+            description: SVCall pending bit
+            index: 15
+            width: 1
+            read: true
+            write: true
+          - name: BUSFAULTPENDED
+            description: BusFault exception pending bit
+            index: 14
+            width: 1
+            read: true
+            write: true
+          - name: MEMFAULTPENDED
+            description: MemManage exception pending bit
+            index: 13
+            width: 1
+            read: true
+            write: true
+          - name: USGFAULTPENDED
+            description: UsageFault exception pending bit
+            index: 12
+            width: 1
+            read: true
+            write: true
+          - name: SYSTICKACT
+            description: SysTick exception active bit
+            index: 11
+            width: 1
+            read: true
+            write: true
+          - name: PENDSVACT
+            description: PendSV exception active bit
+            index: 10
+            width: 1
+            read: true
+            write: true
+          - name: MONITORACT
+            description: Debug monitor active bit
+            index: 8
+            width: 1
+            read: true
+            write: true
+          - name: SVCALLACT
+            description: SVCall active bit
+            index: 7
+            width: 1
+            read: true
+            write: true
+          - name: USGFAULTACT
+            description: UsageFault exception active bit
+            index: 3
+            width: 1
+            read: true
+            write: true
+          - name: BUSFAULTACT
+            description: BusFault exception active bit
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: MEMFAULTACT
+            description: MemManage exception active bit
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CFSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3368
+        description: (read-write) Configurable Fault Status Register
+        fields:
+          - name: DIVBYZERO
+            description: Divide by zero UsageFault
+            index: 25
+            width: 1
+            read: true
+            write: true
+          - name: UNALIGNED
+            description: Unaligned access UsageFault
+            index: 24
+            width: 1
+            read: true
+            write: true
+          - name: NOCP
+            description: No coprocessor UsageFault
+            index: 19
+            width: 1
+            read: true
+            write: true
+          - name: INVPC
+            description: Invalid PC load UsageFault, caused by an invalid PC load
+              by EXC_RETURN
+            index: 18
+            width: 1
+            read: true
+            write: true
+          - name: INVSTATE
+            description: Invalid state UsageFault
+            index: 17
+            width: 1
+            read: true
+            write: true
+          - name: UNDEFINSTR
+            description: Undefined instruction UsageFault
+            index: 16
+            width: 1
+            read: true
+            write: true
+          - name: BFARVALID
+            description: BusFault Address Register (BFAR) valid flag
+            index: 15
+            width: 1
+            read: true
+            write: true
+          - name: LSPERR
+            description: Bus fault occurred during floating-point lazy state preservation
+            index: 13
+            width: 1
+            read: true
+            write: true
+          - name: STKERR
+            description: BusFault on stacking for exception entry
+            index: 12
+            width: 1
+            read: true
+            write: true
+          - name: UNSTKERR
+            description: BusFault on unstacking for a return from exception
+            index: 11
+            width: 1
+            read: true
+            write: true
+          - name: IMPRECISERR
+            description: Imprecise data bus error
+            index: 10
+            width: 1
+            read: true
+            write: true
+          - name: PRECISERR
+            description: Precise data bus error
+            index: 9
+            width: 1
+            read: true
+            write: true
+          - name: IBUSERR
+            description: Instruction bus error
+            index: 8
+            width: 1
+            read: true
+            write: true
+          - name: MMARVALID
+            description: MemManage Fault Address Register (MMFAR) valid flag
+            index: 7
+            width: 1
+            read: true
+            write: true
+          - name: MLSPERR
+            description: MemManage fault occurred during floating-point lazy state
+              preservation
+            index: 5
+            width: 1
+            read: true
+            write: true
+          - name: MSTKERR
+            description: MemManage fault on stacking for exception entry
+            index: 4
+            width: 1
+            read: true
+            write: true
+          - name: MUNSTKERR
+            description: MemManage fault on unstacking for a return from exception
+            index: 3
+            width: 1
+            read: true
+            write: true
+          - name: DACCVIOL
+            description: Data access violation flag
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: IACCVIOL
+            description: Instruction access violation flag
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: HFSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3372
+        description: (read-write) HardFault Status register
+        fields:
+          - name: DEBUGEVT
+            description: Reserved for Debug use. When writing to the register you
+              must write 0 to this bit, otherwise behavior is Unpredictable.
+            index: 31
+            width: 1
+            read: true
+            write: true
+          - name: FORCED
+            description: Indicates a forced hard fault, generated by escalation of
+              a fault with configurable priority that cannot be handles, either because
+              of priority or because it is disabled.
+            index: 30
+            width: 1
+            read: true
+            write: true
+          - name: VECTTBL
+            description: Indicates a BusFault on a vector table read during exception
+              processing.
+            index: 1
+            width: 1
+            read: true
+            write: true
+      - name: DFSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3376
+        description: (read-write) Debug Fault Status Register
+        fields:
+          - name: EXTERNAL
+            description: Debug event generated because of the assertion of an external
+              debug request
+            index: 4
+            width: 1
+            read: true
+            write: true
+          - name: VCATCH
+            description: Indicates triggering of a Vector catch
+            index: 3
+            width: 1
+            read: true
+            write: true
+          - name: DWTTRAP
+            description: Debug event generated by the DWT
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: BKPT
+            description: Debug event generated by BKPT instruction execution or a
+              breakpoint match in FPB
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: HALTED
+            description: Indicates a debug event generated by either a C_HALT or C_STEP
+              request, triggered by a write to the DHCSR or a step request triggered
+              by setting DEMCR.MON_STEP to 1.
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: MMFAR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3380
+        description: (read-write) MemManage Fault Address Register
+        fields:
+          - name: ADDRESS
+            description: Address of MemManage fault location
+            index: 0
+            width: 32
+            read: true
+            write: true
+      - name: BFAR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3384
+        description: (read-write) BusFault Address Register
+        fields:
+          - name: ADDRESS
+            description: Address of the BusFault location
+            index: 0
+            width: 32
+            read: true
+            write: true
+      - name: ID_PFR0
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3392
+        description: (read-write) Processor Feature Register 0
+        fields:
+          - name: STATE3
+            description: ARMv7-M unused
+            index: 12
+            width: 4
+            read: true
+            write: false
+          - name: STATE2
+            description: ARMv7-M unused
+            index: 8
+            width: 4
+            read: true
+            write: false
+          - name: STATE1
+            description: Thumb instruction set support
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_PFR0_STATE1
+          - name: STATE0
+            description: ARM instruction set support
+            index: 0
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_PFR0_STATE0
+      - name: ID_PFR1
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3396
+        description: (read-write) Processor Feature Register 1
+        fields:
+          - name: PROGMODEL
+            description: M profile programmers' model
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_PFR1_PROGMODEL
+      - name: ID_DFR0
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3400
+        description: (read-write) Debug Feature Register
+        fields:
+          - name: DEBUGMODEL
+            description: Support for memory-mapped debug model for M profile processors
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_DFR0_DEBUGMODEL
+      - name: ID_AFR0
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3404
+        description: (read-write) Auxiliary Feature Register
+        fields:
+          - name: IMPLEMENTATION_DEFINED3
+            description: Gives information about the IMPLEMENTATION DEFINED features
+              of a processor implementation.
+            index: 12
+            width: 4
+            read: true
+            write: false
+          - name: IMPLEMENTATION_DEFINED2
+            description: Gives information about the IMPLEMENTATION DEFINED features
+              of a processor implementation.
+            index: 8
+            width: 4
+            read: true
+            write: false
+          - name: IMPLEMENTATION_DEFINED1
+            description: Gives information about the IMPLEMENTATION DEFINED features
+              of a processor implementation.
+            index: 4
+            width: 4
+            read: true
+            write: false
+          - name: IMPLEMENTATION_DEFINED0
+            description: Gives information about the IMPLEMENTATION DEFINED features
+              of a processor implementation.
+            index: 0
+            width: 4
+            read: true
+            write: false
+      - name: ID_MMFR0
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3408
+        description: (read-write) Memory Model Feature Register 0
+        fields:
+          - name: AUXILIARY_REGISTERS
+            description: Indicates the support for Auxiliary registers
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR0_AUXILIARY_REGISTERS
+          - name: TCM_SUPPORT
+            description: Indicates the support for Tightly Coupled Memory
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR0_TCM_SUPPORT
+          - name: SHAREABILITY_LEVELS
+            description: Indicates the number of shareability levels implemented
+            index: 12
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR0_SHAREABILITY_LEVELS
+          - name: OUTERMOST_SHAREABILITY
+            description: Indicates the outermost shareability domain implemented
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR0_OUTERMOST_SHAREABILITY
+          - name: PMSASUPPORT
+            description: Indicates support for a PMSA
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR0_PMSASUPPORT
+      - name: ID_MMFR1
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3412
+        description: (read-write) Memory Model Feature Register 1
+        fields:
+          - name: ID_MMFR1
+            description: Gives information about the implemented memory model and
+              memory management support.
+            index: 0
+            width: 32
+            read: true
+            write: false
+      - name: ID_MMFR2
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3416
+        description: (read-write) Memory Model Feature Register 2
+        fields:
+          - name: WFI_STALL
+            description: Indicates the support for Wait For Interrupt (WFI) stalling
+            index: 24
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_MMFR2_WFI_STALL
+      - name: ID_MMFR3
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3420
+        description: (read-write) Memory Model Feature Register 3
+        fields:
+          - name: ID_MMFR3
+            description: Gives information about the implemented memory model and
+              memory management support.
+            index: 0
+            width: 32
+            read: true
+            write: false
+      - name: ID_ISAR0
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3424
+        description: (read-write) Instruction Set Attributes Register 0
+        fields:
+          - name: DIVIDE_INSTRS
+            description: Indicates the supported Divide instructions
+            index: 24
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_DIVIDE_INSTRS
+          - name: DEBUG_INSTRS
+            description: Indicates the supported Debug instructions
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_DEBUG_INSTRS
+          - name: COPROC_INSTRS
+            description: Indicates the supported Coprocessor instructions
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_COPROC_INSTRS
+          - name: CMPBRANCH_INSTRS
+            description: Indicates the supported combined Compare and Branch instructions
+            index: 12
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_CMPBRANCH_INSTRS
+          - name: BITFIELD_INSTRS
+            description: Indicates the supported BitField instructions
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_BITFIELD_INSTRS
+          - name: BITCOUNT_INSTRS
+            description: Indicates the supported Bit Counting instructions
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR0_BITCOUNT_INSTRS
+      - name: ID_ISAR1
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3428
+        description: (read-write) Instruction Set Attributes Register 1
+        fields:
+          - name: INTERWORK_INSTRS
+            description: Indicates the supported Interworking instructions
+            index: 24
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR1_INTERWORK_INSTRS
+          - name: IMMEDIATE_INSTRS
+            description: Indicates the support for data-processing instructions with
+              long immediate
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR1_IMMEDIATE_INSTRS
+          - name: IFTHEN_INSTRS
+            description: Indicates the supported IfThen instructions
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR1_IFTHEN_INSTRS
+          - name: EXTEND_INSTRS
+            description: Indicates the supported Extend instructions
+            index: 12
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR1_EXTEND_INSTRS
+      - name: ID_ISAR2
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3432
+        description: (read-write) Instruction Set Attributes Register 2
+        fields:
+          - name: REVERSAL_INSTRS
+            description: Indicates the supported Reversal instructions
+            index: 28
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_REVERSAL_INSTRS
+          - name: MULTU_INSTRS
+            description: Indicates the supported advanced unsigned Multiply instructions
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_MULTU_INSTRS
+          - name: MULTS_INSTRS
+            description: Indicates the supported advanced signed Multiply instructions
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_MULTS_INSTRS
+          - name: MULT_INSTRS
+            description: Indicates the supported additional Multiply instructions
+            index: 12
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_MULT_INSTRS
+          - name: MULTIACCESSINT_INSTRS
+            description: Indicates the support for multi-access interruptible instructions
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_MULTIACCESSINT_INSTRS
+          - name: MEMHINT_INSTRS
+            description: Indicates the supported Memory Hint instructions
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_MEMHINT_INSTRS
+          - name: LOADSTORE_INSTRS
+            description: Indicates the supported additional load and store instructions
+            index: 0
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR2_LOADSTORE_INSTRS
+      - name: ID_ISAR3
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3436
+        description: (read-write) Instruction Set Attributes Register 3
+        fields:
+          - name: TRUENOP_INSTRS
+            description: Indicates the supported non flag-setting MOV instructions
+            index: 24
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_TRUENOP_INSTRS
+          - name: THUMBCOPY_INSTRS
+            description: Indicates the supported non flag-setting MOV instructions
+            index: 20
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_THUMBCOPY_INSTRS
+          - name: TABBRANCH_INSTRS
+            description: Indicates the supported Table Branch instructions
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_TABBRANCH_INSTRS
+          - name: SYNCHPRIM_INSTRS
+            description: Together with the ID_ISAR4[SYNCHPRIM_INSTRS_FRAC] indicates
+              the supported Synchronization Primitives
+            index: 12
+            width: 4
+            read: true
+            write: false
+          - name: SVC_INSTRS
+            description: Indicates the supported SVC instructions
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_SVC_INSTRS
+          - name: SIMD_INSTRS
+            description: Indicates the supported SIMD instructions
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_SIMD_INSTRS
+          - name: SATURATE_INSTRS
+            description: Indicates the supported Saturate instructions
+            index: 0
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR3_SATURATE_INSTRS
+      - name: ID_ISAR4
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3440
+        description: (read-write) Instruction Set Attributes Register 4
+        fields:
+          - name: PSR_M_INSTRS
+            description: Indicates the supported M profile instructions to modify
+              the PSRs
+            index: 24
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR4_PSR_M_INSTRS
+          - name: SYNCHPRIM_INSTRS_FRAC
+            description: Together with the ID_ISAR3[SYNCHPRIM_INSTRS] indicates the
+              supported Synchronization Primitives
+            index: 20
+            width: 4
+            read: true
+            write: false
+          - name: BARRIER_INSTRS
+            description: Indicates the supported Barrier instructions
+            index: 16
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR4_BARRIER_INSTRS
+          - name: WRITEBACK_INSTRS
+            description: Indicates the support for Writeback addressing modes
+            index: 8
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR4_WRITEBACK_INSTRS
+          - name: WITHSHIFTS_INSTRS
+            description: Indicates the support for instructions with shifts
+            index: 4
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR4_WITHSHIFTS_INSTRS
+          - name: UNPRIV_INSTRS
+            description: Indicates the supported unprivileged instructions. These
+              are the instruction variants indicated by a T suffix.
+            index: 0
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_ID_ISAR4_UNPRIV_INSTRS
+      - name: CLIDR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3448
+        description: (read-write) Cache Level ID register
+        fields:
+          - name: LOU
+            description: Level of Unification for the cache hierarchy
+            index: 27
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_LOU
+          - name: LOC
+            description: Level of Coherency for the cache hierarchy
+            index: 24
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_LOC
+          - name: LOUIS
+            description: Level of Unification Inner Shareable for the cache hierarchy.
+              This field is RAZ.
+            index: 21
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_LOUIS
+          - name: CL7
+            description: Indicate the type of cache implemented at level 7.
+            index: 18
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL7
+          - name: CL6
+            description: Indicate the type of cache implemented at level 6.
+            index: 15
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL6
+          - name: CL5
+            description: Indicate the type of cache implemented at level 5.
+            index: 12
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL5
+          - name: CL4
+            description: Indicate the type of cache implemented at level 4.
+            index: 9
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL4
+          - name: CL3
+            description: Indicate the type of cache implemented at level 3.
+            index: 6
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL3
+          - name: CL2
+            description: Indicate the type of cache implemented at level 2.
+            index: 3
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL2
+          - name: CL1
+            description: Indicate the type of cache implemented at level 1.
+            index: 0
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CLIDR_CL1
+      - name: CTR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3452
+        description: (read-write) Cache Type register
+        fields:
+          - name: FORMAT
+            description: Indicates the implemented CTR format.
+            index: 29
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CTR_FORMAT
+          - name: CWG
+            description: Cache Write-back Granule. The maximum size of memory that
+              can be overwritten as a result of the eviction of a cache entry that
+              has had a memory location in it modified, encoded as Log2 of the number
+              of words.
+            index: 24
+            width: 4
+            read: true
+            write: false
+          - name: ERG
+            description: Exclusives Reservation Granule. The maximum size of the reservation
+              granule that has been implemented for the Load-Exclusive and Store-Exclusive
+              instructions, encoded as Log2 of the number of words.
+            index: 20
+            width: 4
+            read: true
+            write: false
+          - name: DMINLINE
+            description: Log2 of the number of words in the smallest cache line of
+              all the data caches and unified caches that are controlled by the processor.
+            index: 16
+            width: 4
+            read: true
+            write: false
+          - name: IMINLINE
+            description: Log2 of the number of words in the smallest cache line of
+              all the instruction caches that are controlled by the processor.
+            index: 0
+            width: 4
+            read: true
+            write: false
+      - name: CCSIDR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3456
+        description: (read-write) Cache Size ID Register
+        fields:
+          - name: WT
+            description: Indicates whether the cache level supports write-through
+            index: 31
+            width: 1
+            read: true
+            write: false
+          - name: WB
+            description: Indicates whether the cache level supports write-back
+            index: 30
+            width: 1
+            read: true
+            write: false
+          - name: RA
+            description: Indicates whether the cache level supports read-allocation
+            index: 29
+            width: 1
+            read: true
+            write: false
+          - name: WA
+            description: Indicates whether the cache level supports write-allocation
+            index: 28
+            width: 1
+            read: true
+            write: false
+          - name: NUMSETS
+            description: (Number of sets in cache) - 1, therefore a value of 0 indicates
+              1 set in the cache. The number of sets does not have to be a power of
+              2.
+            index: 13
+            width: 15
+            read: true
+            write: false
+          - name: ASSOCIATIVITY
+            description: (Associativity of cache) - 1, therefore a value of 0 indicates
+              an associativity of 1. The associativity does not have to be a power
+              of 2.
+            index: 3
+            width: 10
+            read: true
+            write: false
+          - name: LINESIZE
+            description: (Log2(Number of words in cache line)) - 2.
+            index: 0
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CCSIDR_LINESIZE
+      - name: CSSELR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3460
+        description: (read-write) Cache Size Selection Register
+        fields:
+          - name: LEVEL
+            description: Cache level of required cache
+            index: 1
+            width: 3
+            read: true
+            write: true
+            type: SystemControl_CSSELR_LEVEL
+          - name: IND
+            description: Instruction not data bit
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CPACR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3464
+        description: (read-write) Coprocessor Access Control Register
+        fields:
+          - name: CP11
+            description: Access privileges for coprocessor 11.
+            index: 22
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP11
+          - name: CP10
+            description: Access privileges for coprocessor 10.
+            index: 20
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP10
+          - name: CP7
+            description: Access privileges for coprocessor 7.
+            index: 14
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP7
+          - name: CP6
+            description: Access privileges for coprocessor 6.
+            index: 12
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP6
+          - name: CP5
+            description: Access privileges for coprocessor 5.
+            index: 10
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP5
+          - name: CP4
+            description: Access privileges for coprocessor 4.
+            index: 8
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP4
+          - name: CP3
+            description: Access privileges for coprocessor 3.
+            index: 6
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP3
+          - name: CP2
+            description: Access privileges for coprocessor 2.
+            index: 4
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP2
+          - name: CP1
+            description: Access privileges for coprocessor 1.
+            index: 2
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP1
+          - name: CP0
+            description: Access privileges for coprocessor 0.
+            index: 0
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CPACR_CP0
+      - name: STIR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3840
+        description: (read-write) Instruction cache invalidate all to Point of Unification
+          (PoU)
+        fields:
+          - name: INTID
+            description: Indicates the interrupt to be triggered
+            index: 0
+            width: 9
+            read: false
+            write: true
+      - name: ICIALLU
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3920
+        description: (read-write) Instruction cache invalidate all to Point of Unification
+          (PoU)
+        fields:
+          - name: ICIALLU
+            description: I-cache invalidate all to PoU
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: ICIMVAU
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3928
+        description: (read-write) Instruction cache invalidate by address to PoU
+        fields:
+          - name: ICIMVAU
+            description: I-cache invalidate by MVA to PoU
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCIMVAC
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3932
+        description: (read-write) Data cache invalidate by address to Point of Coherency
+          (PoC)
+        fields:
+          - name: DCIMVAC
+            description: D-cache invalidate by MVA to PoC
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCISW
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3936
+        description: (read-write) Data cache invalidate by set/way
+        fields:
+          - name: DCISW
+            description: D-cache invalidate by set-way
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCCMVAU
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3940
+        description: (read-write) Data cache by address to PoU
+        fields:
+          - name: DCCMVAU
+            description: D-cache clean by MVA to PoU
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCCMVAC
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3944
+        description: (read-write) Data cache clean by address to PoC
+        fields:
+          - name: DCCMVAC
+            description: D-cache clean by MVA to PoC
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCCSW
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3948
+        description: (read-write) Data cache clean by set/way
+        fields:
+          - name: DCCSW
+            description: D-cache clean by set-way
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCCIMVAC
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3952
+        description: (read-write) Data cache clean and invalidate by address to PoC
+        fields:
+          - name: DCCIMVAC
+            description: D-cache clean and invalidate by MVA to PoC
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: DCCISW
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3956
+        description: (read-write) Data cache clean and invalidate by set/way
+        fields:
+          - name: DCCISW
+            description: D-cache clean and invalidate by set-way
+            index: 0
+            width: 32
+            read: false
+            write: true
+      - name: CM7_ITCMCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3984
+        description: (read-write) Instruction Tightly-Coupled Memory Control Register
+        fields:
+          - name: SZ
+            description: TCM size. Indicates the size of the relevant TCM.
+            index: 3
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_CM7_ITCMCR_SZ
+          - name: RETEN
+            description: Retry phase enable. When enabled the processor guarantees
+              to honor the retry output on the corresponding TCM interface, re-executing
+              the instruction which carried out the TCM access.
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: RMW
+            description: Read-Modify-Write (RMW) enable. Indicates that all writes
+              to TCM, that are not the full width of the TCM RAM, use a RMW sequence.
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: EN
+            description: TCM enable. When a TCM is disabled all accesses are made
+              to the AXIM interface.
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CM7_DTCMCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3988
+        description: (read-write) Data Tightly-Coupled Memory Control Register
+        fields:
+          - name: SZ
+            description: TCM size. Indicates the size of the relevant TCM.
+            index: 3
+            width: 4
+            read: true
+            write: false
+            type: SystemControl_CM7_DTCMCR_SZ
+          - name: RETEN
+            description: Retry phase enable. When enabled the processor guarantees
+              to honor the retry output on the corresponding TCM interface, re-executing
+              the instruction which carried out the TCM access.
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: RMW
+            description: Read-Modify-Write (RMW) enable. Indicates that all writes
+              to TCM, that are not the full width of the TCM RAM, use a RMW sequence.
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: EN
+            description: TCM enable. When a TCM is disabled all accesses are made
+              to the AXIM interface.
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CM7_AHBPCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3992
+        description: (read-write) AHBP Control Register
+        fields:
+          - name: SZ
+            description: AHBP size.
+            index: 1
+            width: 3
+            read: true
+            write: false
+            type: SystemControl_CM7_AHBPCR_SZ
+          - name: EN
+            description: AHBP enable.
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CM7_CACR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 3996
+        description: (read-write) L1 Cache Control Register
+        fields:
+          - name: FORCEWT
+            description: Enables Force Write-Through in the data cache.
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: ECCDIS
+            description: Enables ECC in the instruction and data cache.
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: SIWT
+            description: Shared cacheable-is-WT for data cache. Enables limited cache
+              coherency usage.
+            index: 0
+            width: 1
+            read: true
+            write: true
+      - name: CM7_AHBSCR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 4000
+        description: (read-write) AHB Slave Control Register
+        fields:
+          - name: INITCOUNT
+            description: Fairness counter initialization value.
+            index: 11
+            width: 5
+            read: true
+            write: true
+          - name: TPRI
+            description: Threshold execution priority for AHBS traffic demotion.
+            index: 2
+            width: 9
+            read: true
+            write: true
+          - name: CTL
+            description: AHBS prioritization control.
+            index: 0
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CM7_AHBSCR_CTL
+      - name: CM7_ABFSR
+        type: uint32_t
+        expected_size: 4
+        expected_offset: 4008
+        description: (read-write) Auxiliary Bus Fault Status Register
+        fields:
+          - name: AXIMTYPE
+            description: Indicates the type of fault on the AXIM interface. Only valid
+              when AXIM is 1.
+            index: 8
+            width: 2
+            read: true
+            write: true
+            type: SystemControl_CM7_ABFSR_AXIMTYPE
+          - name: EPPB
+            description: Asynchronous fault on EPPB interface.
+            index: 4
+            width: 1
+            read: true
+            write: true
+          - name: AXIM
+            description: Asynchronous fault on AXIM interface.
+            index: 3
+            width: 1
+            read: true
+            write: true
+          - name: AHBP
+            description: Asynchronous fault on AHBP interface.
+            index: 2
+            width: 1
+            read: true
+            write: true
+          - name: DTCM
+            description: Asynchronous fault on DTCM interface.
+            index: 1
+            width: 1
+            read: true
+            write: true
+          - name: ITCM
+            description: Asynchronous fault on ITCM interface.
+            index: 0
+            width: 1
+            read: true
+            write: true
+    stream: false
+    codec: false
+    methods: false
+    unit_test: false
+    identifier: false
+enums:
+  SystemControl_ACTLR_DISISSCH1:
+    enum:
+      _0:
+        description: Normal operation.
+        value: 0
+      _1:
+        description: Nothing can be dual-issued when this instruction type is in channel
+          1.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ACTLR_DISDI:
+    enum:
+      _0:
+        description: Normal operation.
+        value: 0
+      _1:
+        description: Nothing can be dual-issued when this instruction type is in channel
+          0.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_PFR0_STATE1:
+    enum:
+      _0:
+        description: The processor does not support the ARM instruction set.
+        value: 0
+      _1:
+        description: ARMv7-M unused
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_PFR0_STATE0:
+    enum:
+      _0:
+        description: ARMv7-M unused
+        value: 0
+      _1:
+        description: ARMv7-M unused
+        value: 1
+      _2:
+        description: ARMv7-M unused
+        value: 2
+      _3:
+        description: Support for Thumb encoding including Thumb-2 technology, with
+          all basic 16-bit and 32-bit instructions.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_PFR1_PROGMODEL:
+    enum:
+      _0:
+        description: ARMv7-M unused
+        value: 0
+      _2:
+        description: Two-stack programmers' model supported
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_DFR0_DEBUGMODEL:
+    enum:
+      _0:
+        description: Not supported
+        value: 0
+      _1:
+        description: Support for M profile Debug architecture, with memory-mapped
+          access.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR0_AUXILIARY_REGISTERS:
+    enum:
+      _0:
+        description: Not supported
+        value: 0
+      _1:
+        description: Support for Auxiliary Control Register only.
+        value: 1
+      _2:
+        description: ARMv7-M unused
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR0_TCM_SUPPORT:
+    enum:
+      _0:
+        description: No tightly coupled memories implemented.
+        value: 0
+      _1:
+        description: Tightly coupled memories implemented with IMPLEMENTATION DEFINED
+          control.
+        value: 1
+      _2:
+        description: ARMv7-M unused
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR0_SHAREABILITY_LEVELS:
+    enum:
+      _0:
+        description: One level of shareability implemented
+        value: 0
+      _1:
+        description: ARMv7-M unused
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR0_OUTERMOST_SHAREABILITY:
+    enum:
+      _0:
+        description: Implemented as Non-cacheable
+        value: 0
+      _1:
+        description: ARMv7-M unused
+        value: 1
+      _2:
+        description: ARMv7-M unused
+        value: 2
+      _3:
+        description: ARMv7-M unused
+        value: 3
+      _4:
+        description: ARMv7-M unused
+        value: 4
+      _5:
+        description: ARMv7-M unused
+        value: 5
+      _6:
+        description: ARMv7-M unused
+        value: 6
+      _7:
+        description: ARMv7-M unused
+        value: 7
+      _8:
+        description: ARMv7-M unused
+        value: 8
+      _9:
+        description: ARMv7-M unused
+        value: 9
+      _10:
+        description: ARMv7-M unused
+        value: 10
+      _11:
+        description: ARMv7-M unused
+        value: 11
+      _12:
+        description: ARMv7-M unused
+        value: 12
+      _13:
+        description: ARMv7-M unused
+        value: 13
+      _14:
+        description: ARMv7-M unused
+        value: 14
+      _15:
+        description: Shareability ignored.
+        value: 15
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR0_PMSASUPPORT:
+    enum:
+      _0:
+        description: Not supported
+        value: 0
+      _1:
+        description: ARMv7-M unused
+        value: 1
+      _2:
+        description: ARMv7-M unused
+        value: 2
+      _3:
+        description: PMSAv7, providing support for a base region and subregions.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_MMFR2_WFI_STALL:
+    enum:
+      _0:
+        description: Not supported
+        value: 0
+      _1:
+        description: Support for WFI stalling
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_DIVIDE_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the SDIV and UDIV instructions
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_DEBUG_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the BKPT instruction
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_COPROC_INSTRS:
+    enum:
+      _0:
+        description: None supported, except for separately attributed architectures,
+          for example the Floating-point extension
+        value: 0
+      _1:
+        description: Adds support for generic CDP, LDC, MCR, MRC, and STC instructions
+        value: 1
+      _2:
+        description: As for 1, and adds support for generic CDP2, LDC2, MCR2, MRC2,
+          and STC2 instructions
+        value: 2
+      _3:
+        description: As for 2, and adds support for generic MCRR and MRRC instructions
+        value: 3
+      _4:
+        description: As for 3, and adds support for generic MCRR2 and MRRC2 instructions
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_CMPBRANCH_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the CBNZ and CBZ instructions
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_BITFIELD_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the BFC, BFI, SBFX, and UBFX instructions
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR0_BITCOUNT_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the CLZ instruction
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR1_INTERWORK_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the BX instruction, and the T bit in the PSR
+        value: 1
+      _2:
+        description: As for 1, and adds support for the BLX instruction, and PC loads
+          have BX-like behavior
+        value: 2
+      _3:
+        description: ARMv7-M unused
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR1_IMMEDIATE_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the ADDW, MOVW, MOVT, and SUBW instructions
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR1_IFTHEN_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the IT instructions, and for the IT bits in
+          the PSRs
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR1_EXTEND_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the SXTB, SXTH, UXTB, and UXTH instructions
+        value: 1
+      _2:
+        description: As for 1, and adds support for the SXTAB, SXTAB16, SXTAH, SXTB16,
+          UXTAB, UXTAB16, UXTAH, and UXTB16 instructions
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_REVERSAL_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the REV, REV16, and REVSH instructions, ARMv7-M
+          unused.
+        value: 1
+      _2:
+        description: As for 1, and adds support for the RBIT instruction.
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_MULTU_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the UMULL and UMLAL instructions.
+        value: 1
+      _2:
+        description: As for 1, and adds support for the UMAAL instruction.
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_MULTS_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the SMULL and SMLAL instructions
+        value: 1
+      _2:
+        description: As for 1, and adds support for the SMLABB, SMLABT, SMLALBB, SMLALBT,
+          SMLALTB, SMLALTT, SMLATB, SMLATT, SMLAWB, SMLAWT, SMULBB, SMULBT, SMULTB,
+          SMULTT, SMULWB, and SMULWT instructions.
+        value: 2
+      _3:
+        description: As for 2, and adds support for the SMLAD, SMLADX, SMLALD, SMLALDX,
+          SMLSD, SMLSDX, SMLSLD, SMLSLDX, SMMLA, SMMLAR, SMMLS, SMMLSR, SMMUL, SMMULR,
+          SMUAD, SMUADX, SMUSD, and SMUSDX instructions.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_MULT_INSTRS:
+    enum:
+      _0:
+        description: None supported. This means only MUL is supported. ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the MLA instruction, ARMv7-M unused.
+        value: 1
+      _2:
+        description: As for 1, and adds support for the MLS instruction.
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_MULTIACCESSINT_INSTRS:
+    enum:
+      _0:
+        description: None supported. This means the LDM and STM instructions are not
+          interruptible. ARMv7-M unused.
+        value: 0
+      _1:
+        description: LDM and STM instructions are restartable.
+        value: 1
+      _2:
+        description: LDM and STM instructions are continuable.
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_MEMHINT_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the PLD instruction, ARMv7-M unused.
+        value: 1
+      _2:
+        description: As for 1, ARMv7-M unused.
+        value: 2
+      _3:
+        description: As for 1 or 2, and adds support for the PLI instruction.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR2_LOADSTORE_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused
+        value: 0
+      _1:
+        description: Adds support for the LDRD and STRD instructions
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_TRUENOP_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for encoding T1 of the MOV (register) instruction
+          copying from a low register to a low register.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_THUMBCOPY_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for encoding T1 of the MOV (register) instruction
+          copying from a low register to a low register.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_TABBRANCH_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the TBB and TBH instructions.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_SVC_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the SVC instruction.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_SIMD_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the SSAT and USAT instructions, and for the
+          Q bit in the PSRs.
+        value: 1
+      _3:
+        description: As for 1, and adds support for the PKHBT, PKHTB, QADD16, QADD8,
+          QASX, QSUB16, QSUB8, QSAX, SADD16, SADD8, SASX, SEL, SHADD16, SHADD8, SHASX,
+          SHSUB16, SHSUB8, SHSAX, SSAT16, SSUB16, SSUB8, SSAX, SXTAB16, SXTB16, UADD16,
+          UADD8, UASX, UHADD16, UHADD8, UHASX, UHSUB16, UHSUB8, UHSAX, UQADD16, UQADD8,
+          UQASX, UQSUB16, UQSUB8, UQSAX, USAD8, USADA8, USAT16, USUB16, USUB8, USAX,
+          UXTAB16, and UXTB16 instructions. Also adds support for the GE[3:0] bits
+          in the PSRs.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR3_SATURATE_INSTRS:
+    enum:
+      _0:
+        description: None supported
+        value: 0
+      _1:
+        description: Adds support for the QADD, QDADD, QDSUB, and QSUB instructions,
+          and for the Q bit in the PSRs.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR4_PSR_M_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the M-profile forms of the CPS, MRS, and MSR
+          instructions, to access the PSRs.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR4_BARRIER_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the DMB, DSB, and ISB barrier instructions.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR4_WRITEBACK_INSTRS:
+    enum:
+      _0:
+        description: Basic support. Only the LDM, STM, PUSH, and POP instructions
+          support writeback addressing modes. ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for all of the writeback addressing modes defined
+          in the ARMv7-M architecture.
+        value: 1
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR4_WITHSHIFTS_INSTRS:
+    enum:
+      _0:
+        description: Nonzero shifts supported only in MOV and shift instructions.
+        value: 0
+      _1:
+        description: Adds support for shifts of loads and stores over the range LSL
+          0-3.
+        value: 1
+      _3:
+        description: As for 1, and adds support for other constant shift options,
+          on loads, stores, and other instructions.
+        value: 3
+      _4:
+        description: ARMv7-M unused.
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_ID_ISAR4_UNPRIV_INSTRS:
+    enum:
+      _0:
+        description: None supported, ARMv7-M unused.
+        value: 0
+      _1:
+        description: Adds support for the LDRBT, LDRT, STRBT, and STRT instructions.
+        value: 1
+      _2:
+        description: As for 1, and adds support for the LDRHT, LDRSBT, LDRSHT, and
+          STRHT instructions.
+        value: 2
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_LOU:
+    enum:
+      _0:
+        description: '0'
+        value: 0
+      _1:
+        description: '1'
+        value: 1
+      _2:
+        description: '2'
+        value: 2
+      _3:
+        description: '3'
+        value: 3
+      _4:
+        description: '4'
+        value: 4
+      _5:
+        description: '5'
+        value: 5
+      _6:
+        description: '6'
+        value: 6
+      _7:
+        description: '7'
+        value: 7
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_LOC:
+    enum:
+      _0:
+        description: '0'
+        value: 0
+      _1:
+        description: '1'
+        value: 1
+      _2:
+        description: '2'
+        value: 2
+      _3:
+        description: '3'
+        value: 3
+      _4:
+        description: '4'
+        value: 4
+      _5:
+        description: '5'
+        value: 5
+      _6:
+        description: '6'
+        value: 6
+      _7:
+        description: '7'
+        value: 7
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_LOUIS:
+    enum:
+      _0:
+        description: '0'
+        value: 0
+      _1:
+        description: '1'
+        value: 1
+      _2:
+        description: '2'
+        value: 2
+      _3:
+        description: '3'
+        value: 3
+      _4:
+        description: '4'
+        value: 4
+      _5:
+        description: '5'
+        value: 5
+      _6:
+        description: '6'
+        value: 6
+      _7:
+        description: '7'
+        value: 7
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL7:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL6:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL5:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL4:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL3:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL2:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CLIDR_CL1:
+    enum:
+      _0:
+        description: No cache
+        value: 0
+      _1:
+        description: Instruction cache only
+        value: 1
+      _2:
+        description: Data cache only
+        value: 2
+      _3:
+        description: Separate instruction and data caches
+        value: 3
+      _4:
+        description: Unified cache
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CTR_FORMAT:
+    enum:
+      FORMAT_4:
+        description: ARMv7 format.
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CCSIDR_LINESIZE:
+    enum:
+      _0:
+        description: The line length of 4 words.
+        value: 0
+      _1:
+        description: The line length of 8 words.
+        value: 1
+      _2:
+        description: The line length of 16 words.
+        value: 2
+      _3:
+        description: The line length of 32 words.
+        value: 3
+      _4:
+        description: The line length of 64 words.
+        value: 4
+      _5:
+        description: The line length of 128 words.
+        value: 5
+      _6:
+        description: The line length of 256 words.
+        value: 6
+      _7:
+        description: The line length of 512 words.
+        value: 7
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CSSELR_LEVEL:
+    enum:
+      _0:
+        description: Level 1 cache.
+        value: 0
+      _1:
+        description: Level 2 cache.
+        value: 1
+      _2:
+        description: Level 3 cache.
+        value: 2
+      _3:
+        description: Level 4 cache.
+        value: 3
+      _4:
+        description: Level 5 cache.
+        value: 4
+      _5:
+        description: Level 6 cache.
+        value: 5
+      _6:
+        description: Level 7 cache.
+        value: 6
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP11:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP10:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP7:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP6:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP5:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP4:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP3:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP2:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP1:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CPACR_CP0:
+    enum:
+      _0:
+        description: Access denied. Any attempted access generates a NOCP UsageFault.
+        value: 0
+      _1:
+        description: Privileged access only. An unprivileged access generates a NOCP
+          UsageFault.
+        value: 1
+      _3:
+        description: Full access.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CM7_ITCMCR_SZ:
+    enum:
+      _0:
+        description: No TCM implemented.
+        value: 0
+      _3:
+        description: 4KB.
+        value: 3
+      _4:
+        description: 8KB.
+        value: 4
+      _5:
+        description: 16KB.
+        value: 5
+      _6:
+        description: 32KB.
+        value: 6
+      _7:
+        description: 64KB.
+        value: 7
+      _8:
+        description: 128KB.
+        value: 8
+      _9:
+        description: 256KB.
+        value: 9
+      _10:
+        description: 512KB.
+        value: 10
+      _11:
+        description: 1MB.
+        value: 11
+      _12:
+        description: 2MB.
+        value: 12
+      _13:
+        description: 4MB.
+        value: 13
+      _14:
+        description: 8MB.
+        value: 14
+      _15:
+        description: 16MB.
+        value: 15
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CM7_DTCMCR_SZ:
+    enum:
+      _0:
+        description: No TCM implemented.
+        value: 0
+      _3:
+        description: 4KB.
+        value: 3
+      _4:
+        description: 8KB.
+        value: 4
+      _5:
+        description: 16KB.
+        value: 5
+      _6:
+        description: 32KB.
+        value: 6
+      _7:
+        description: 64KB.
+        value: 7
+      _8:
+        description: 128KB.
+        value: 8
+      _9:
+        description: 256KB.
+        value: 9
+      _10:
+        description: 512KB.
+        value: 10
+      _11:
+        description: 1MB.
+        value: 11
+      _12:
+        description: 2MB.
+        value: 12
+      _13:
+        description: 4MB.
+        value: 13
+      _14:
+        description: 8MB.
+        value: 14
+      _15:
+        description: 16MB.
+        value: 15
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CM7_AHBPCR_SZ:
+    enum:
+      _0:
+        description: 0MB. AHBP disabled.
+        value: 0
+      _1:
+        description: 64MB.
+        value: 1
+      _2:
+        description: 128MB.
+        value: 2
+      _3:
+        description: 256MB.
+        value: 3
+      _4:
+        description: 512MB.
+        value: 4
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CM7_AHBSCR_CTL:
+    enum:
+      _0:
+        description: AHBS access priority demoted. This is the reset value.
+        value: 0
+      _1:
+        description: Software access priority demoted.
+        value: 1
+      _2:
+        description: AHBS access priority demoted by initializing the fairness counter
+          to the CM7_AHBSCR[INITCOUNT] value when the software execution priority
+          is higher than or equal to the threshold level programed in CM7_AHBSCR[TPRI].
+        value: 2
+      _3:
+        description: AHBSPRI signal has control of access priority.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
+  SystemControl_CM7_ABFSR_AXIMTYPE:
+    enum:
+      _0:
+        description: OKAY.
+        value: 0
+      _1:
+        description: EXOKAY.
+        value: 1
+      _2:
+        description: SLVERR.
+        value: 2
+      _3:
+        description: DECERR.
+        value: 3
+    unit_test: false
+    json: false
+    use_map: false
+    identifier: false
