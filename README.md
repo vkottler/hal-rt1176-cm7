@@ -2,11 +2,11 @@
     =====================================
     generator=datazen
     version=3.1.4
-    hash=320fd7694c3656addf08d728d55b983b
+    hash=8924ea5c346c18eb98c88923461e73f6
     =====================================
 -->
 
-# hal-rt1176-cm7 ([0.1.1](https://github.com/vkottler/hal-rt1176-cm7/releases/tag/0.1.1))
+# hal-rt1176-cm7 ([0.2.0](https://github.com/vkottler/hal-rt1176-cm7/releases/tag/0.2.0))
 
 [![codecov](https://codecov.io/gh/vkottler/hal-rt1176-cm7/branch/master/graph/badge.svg)](https://codecov.io/gh/vkottler/hal-rt1176-cm7)
 ![Build Status](https://github.com/vkottler/hal-rt1176-cm7/actions/workflows/yambs-project.yml/badge.svg)
@@ -33,7 +33,6 @@ From a fresh checkout:
 ```
 git submodule update --init
 mk dz-sync
-mk download-toolchains
 mk g
 ```
 
